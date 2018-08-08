@@ -4,14 +4,15 @@ local scope_hud = {} -- Stores the ID of the scope overlay HUD element
 local hud_flags = {} -- Stores the player's HUD flags before disabling them
 local interval = {}  -- Interval between each shot, depends on rifle's fire-rate
 local base_dmg = 6   -- Base damage, used for calculating damage dealt
+local max_dist = 500 -- Max distance of Raycast
 
 minetest.register_on_joinplayer(function(player)
 	scope_hud[player:get_player_name()] = nil
 end)
 
-minetest.register_on_wielditem_change(function(player, old, new)
+--[[minetest.register_on_wielditem_change(function(player, old, new)
 	hide_scope(player)
-end)
+end)]]
 
 -- Show scope
 function show_scope(player, fov, style)
@@ -66,11 +67,20 @@ function left_click(itemstack, player, pointed_thing)
 		return
 	end
 
-	-- Fire!
+	-- Take aim
+	local p1 = vector.add(player:get_pos(), {x = 0, y = 1.625, z = 0})
+	p1 = vector.add(p1, player:get_look_dir())
+	local p2 = vector.add(p1, vector.multiply(player:get_look_dir(), max_dist))
+	local ray = minetest.raycast(p1, p2)
+	local pointed_thing = ray:next()
 
-	-- Calculate and set damage dealt
-	local damage = math.floor(base_dmg * rifle.damage_mult)
-	-- target:set_hp(damage)
+	-- Fire!
+	if pointed_thing and pointed_thing.type == "object" then
+		local target = pointed_thing.ref
+		if target:is_player() then
+			target:set_hp(math.floor(base_dmg * rifle.damage_mult))
+		end
+	end
 
 	-- Simulate recoil, intensity depends on rifle.stab_mult
 	local recoil = 0.05 * rifle.stab_mult
