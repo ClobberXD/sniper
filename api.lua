@@ -13,6 +13,7 @@ minetest.register_on_wielditem_change(function(player, old, new)
 	hide_scope(player)
 end)
 
+-- Show scope
 function show_scope(player, fov, style)
 	if not player then
 		return
@@ -41,14 +42,16 @@ function show_scope(player, fov, style)
 	})
 end
 
+-- Hide scope
 function hide_scope(player)
 	local name = player:get_player_name()
 	player:clear_fov()
 	player:hud_remove(scope_hud[name])
 	player:hud_set_flags(hud_flags[name])
-	scope_hud[name] = null
+	scope_hud[name] = nil
 end
 
+-- Handle a left-click
 function left_click(itemstack, player, pointed_thing)
 	local name = player:get_player_name()
 	local rifle = sniper.rifles[itemstack:get_name()]
@@ -83,6 +86,7 @@ function left_click(itemstack, player, pointed_thing)
 	return itemstack
 end
 
+-- Handle a right-click
 function right_click(itemstack, player, pointed_thing)
 	local name = player:get_player_name()
 	local rifle = sniper.rifles[itemstack:get_name()]
@@ -92,8 +96,19 @@ function right_click(itemstack, player, pointed_thing)
 
 	-- Check if player is looking through the scope
 	if not scope_hud[name] then
+		local speed_mult = 0.2 + (1 - rifle.stab_mult)
+		player:set_physics_override({
+			speed = speed_mult,
+			jump = 0,
+			sneak = false
+		})
 		show_scope(player, rifle.scope_fov, rifle.scope_style)
 	else
+		player:set_physics_override({
+			speed = 1,
+			jump = 1,
+			sneak = true
+		})
 		hide_scope(player)
 	end
 
@@ -125,6 +140,7 @@ function verify_def(def)
 	return def
 end
 
+-- Register rifle
 function sniper.register_rifle(name, def)
 	if sniper.rifles[name] then
 		minetest.log("warning",
