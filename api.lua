@@ -70,7 +70,8 @@ function left_click(itemstack, player, pointed_thing)
 	-- target:set_hp(damage)
 
 	-- Simulate recoil, intensity depends on rifle.stab_mult
-	player:set_look_vertical(-0.005 + (0.001 * rifle.stab_mult))
+	local recoil = 0.05 * rifle.stab_mult
+	player:set_look_vertical(player:get_look_vertical() - recoil)
 
 	-- Set interval, depends on fire_rate
 	-- If fire_rate == 2 shots/sec, interval = os.time() + 0.5s
