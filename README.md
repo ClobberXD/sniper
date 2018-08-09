@@ -2,6 +2,25 @@
 
 Sniper is a Minetest mod which adds advanced sniper rifles to the game. Sniper comes with a default rifle, and it also provides a nice API to register custom rifles. It differs from other gun mods in that it's very realistic - rifles can have functional-scopes with zoom, realistic recoil, accurate shoot and reload sounds, and more. These features can customized per-rifle - check out the registration section for more details.
 
+### Warning
+
+This mod makes use of the following features that haven't been merged into the engine just yet:
+
+- [Player FOV overriding](https://github.com/minetest/minetest/pull/7557)
+- [`register_on_wielditem_change` callback](https://github.com/minetest/minetest/pull/7587)
+
+In order to run this mod without these features, the following segments of code needs to be commented out:
+
+- L9-L11 (`register_on_wielditem_change`)
+  - ```lua
+    minetest.register_on_wielditem_change(function(player, old, new)
+        hide_scope(player)
+    end)
+    ```
+- L35, L49
+  - `player:set_fov(fov)`
+  - `player:set_fov(0)`
+
 ## Registering custom rifles
 
 New sniper rifles can be registered using the `sniper.register_rifle(name, def)` function, where `name` is a string used to address the rifle internally, and `def` is a table containing the rifle's definition. Here's an example def table that provides the possible properties with their default values:
