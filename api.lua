@@ -10,9 +10,9 @@ minetest.register_on_joinplayer(function(player)
 	scope_hud[player:get_player_name()] = nil
 end)
 
---[[minetest.register_on_wielditem_change(function(player, old, new)
+minetest.register_on_wielditem_change(function(player, old, new)
 	hide_scope(player)
-end)]]
+end)
 
 -- Show scope
 function show_scope(player, fov, style)
@@ -46,7 +46,7 @@ end
 -- Hide scope
 function hide_scope(player)
 	local name = player:get_player_name()
-	player:clear_fov()
+	player:set_fov(0)
 	player:hud_remove(scope_hud[name])
 	player:hud_set_flags(hud_flags[name])
 	scope_hud[name] = nil
