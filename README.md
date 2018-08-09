@@ -1,4 +1,4 @@
-# Sniper [v0.1]
+# Sniper [v1.0]
 
 Sniper is a Minetest mod which adds advanced sniper rifles to the game. Sniper comes with a default rifle, and it also provides a nice API to register custom rifles. It differs from other gun mods in that it's very realistic - rifles can have functional-scopes with zoom, realistic recoil, accurate shoot and reload sounds, and more. These features can customized per-rifle - check out the registration section for more details.
 
