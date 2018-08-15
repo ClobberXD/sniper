@@ -13,15 +13,16 @@ This mod makes use of the following features that haven't been merged into the e
 
 In order to run this mod without these features, the following segments of code needs to be commented out:
 
-- L9-L11 (`register_on_wielditem_change`)
+- `register_on_wielditem_change`
   - ```lua
     minetest.register_on_wielditem_change(function(player, old, new)
-        hide_scope(player)
+    	if hud_scope[player:get_player_name()] then
+	        hide_scope(player)
+	    end
     end)
     ```
-- L35, L49
-  - `player:set_fov(fov)`
-  - `player:set_fov(0)`
+- `player:set_fov(fov)`
+- `player:set_fov(0)`
 
 ## Registering custom rifles
 
