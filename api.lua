@@ -4,7 +4,7 @@ local scope_hud = {} -- Stores the ID of the scope overlay HUD element
 local hud_flags = {} -- Stores the player's HUD flags before disabling them
 local interval = {}  -- Interval between each shot, depends on rifle's fire-rate
 local base_dmg = 6   -- Base damage, used for calculating damage dealt
-local max_dist = 500 -- Max distance of Raycast
+local max_dist = 150 -- Max distance of Raycast
 
 minetest.register_on_joinplayer(function(player)
 	scope_hud[player:get_player_name()] = nil
