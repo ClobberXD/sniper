@@ -11,7 +11,9 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_on_wielditem_change(function(player, old, new)
-	hide_scope(player)
+	if scope_hud[player:get_player_name()] then
+		hide_scope(player)
+	end
 end)
 
 -- Show scope
