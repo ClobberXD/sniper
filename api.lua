@@ -55,7 +55,7 @@ function hide_scope(player)
 end
 
 -- Handle a left-click
-function left_click(itemstack, player, pointed_thing)
+function left_click(itemstack, player, _)
 	local name = player:get_player_name()
 	local rifle = sniper.rifles[itemstack:get_name()]
 
@@ -99,7 +99,7 @@ function left_click(itemstack, player, pointed_thing)
 end
 
 -- Handle a right-click
-function right_click(itemstack, player, pointed_thing)
+function right_click(itemstack, player, _)
 	local name = player:get_player_name()
 	local rifle = sniper.rifles[itemstack:get_name()]
 
