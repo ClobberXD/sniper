@@ -154,11 +154,8 @@ end
 
 -- Register rifle
 function sniper.register_rifle(name, def)
-	if sniper.rifles[name] then
-		minetest.log("warning",
-			"[sniper] Attempting to register new rifle with pre-existing name")
-		return
-	end
+	assert(not sniper.rifles[name],
+			"[sniper.register_rifle] A rifle with that name already exists!")
 
 	sniper.rifles[name] = verify_def(def)
 
@@ -168,6 +165,7 @@ function sniper.register_rifle(name, def)
 		wield_image = def.wield_image,
 		stack_max = 1,
 		range = 0.0,
+		wield_scale = {x = 1.5, y = 1, z = 0.5},
 
 		on_use = left_click,
 		on_secondary_use = right_click

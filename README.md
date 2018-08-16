@@ -16,9 +16,9 @@ In order to run this mod without these features, the following segments of code 
 - `register_on_wielditem_change`
   - ```lua
     minetest.register_on_wielditem_change(function(player, old, new)
-    	if hud_scope[player:get_player_name()] then
-	        hide_scope(player)
-	    end
+      if hud_scope[player:get_player_name()] then
+          hide_scope(player)
+      end
     end)
     ```
 - `player:set_fov(fov)`
@@ -30,7 +30,7 @@ New sniper rifles can be registered using the `sniper.register_rifle(name, def)`
 
 ```lua
 {
-    -- The name displayed in the inventory and other places visible to the end user (player).
+    -- The name displayed in the inventory and other places visible to the player.
     display_name = "Sniper Rifle",
 
     -- Inventory and wield images
@@ -49,6 +49,7 @@ New sniper rifles can be registered using the `sniper.register_rifle(name, def)`
     damage_mult = 1.0,
 
     -- Stability multiplier affects the amount of recoil after every shot.
+    -- The more stable a rifle is, the slower a player would move while using it.
     -- Valid range of values: 0.1 to 5
     stab_mult = 1.0,
 
