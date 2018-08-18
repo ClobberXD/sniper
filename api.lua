@@ -35,7 +35,6 @@ function show_scope(player, fov, style)
 	})
 
 	player:set_fov(fov)
-
 	scope_hud[name] = player:hud_add({
 		hud_elem_type = "image",
 		scale = {x = -100, y = -100},
@@ -79,9 +78,14 @@ function left_click(itemstack, player, _)
 	-- Fire!
 	if pointed_thing and pointed_thing.type == "object" then
 		local target = pointed_thing.ref
-		if target:is_player() then
-			target:set_hp(math.floor(base_dmg * rifle.damage_mult))
+		local intersection = pointed_thing.intersection_point.y
+		local dmg = math.floor(base_dmg * rifle.damage_mult)
+
+		-- Check for headshot, double the damage if true
+		if intersection > target:get_pos().y + 1.5 then
+			dmg = dmg * 2
 		end
+		target:set_hp(dmg)
 	end
 
 	-- Simulate recoil, intensity depends on rifle.stab_mult
