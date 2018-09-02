@@ -1,28 +1,10 @@
-# Sniper [v0.2] ![Travis-CI](https://travis-ci.org/ClobberXD/sniper.svg?branch=master)
+# Sniper ![Travis-CI](https://travis-ci.org/ClobberXD/sniper.svg?branch=master)
 
-Sniper is a Minetest mod which adds advanced sniper rifles to the game. Sniper comes with a default rifle, and it also provides a nice API to register custom rifles. It differs from other gun mods in that it's very realistic - rifles can have functional-scopes with zoom, realistic recoil, accurate shoot and reload sounds, and more. These features can customized per-rifle - check out the registration section for more details.
+Sniper is a Minetest mod which adds advanced sniper rifles to the game. Sniper comes with a default rifle, and it also provides a nice API to register custom rifles. It differs from other gun mods in that it's very realistic - this mod supports functional-scopes with zoom, realistic recoil, accurate shoot and reload sounds, and more on a per-rifle basis - check out the registration section for more details.
+
+**Current version:** v0.3
 
 ![screenshot](screenshot.png)
-
-### Warning
-
-This mod makes use of the following features that haven't been merged into the engine just yet:
-
-- [Player FOV overriding](https://github.com/minetest/minetest/pull/7557)
-- [`register_on_wielditem_change` callback](https://github.com/minetest/minetest/pull/7587)
-
-In order to run this mod without these features, the following segments of code needs to be commented out:
-
-- `register_on_wielditem_change`
-  - ```lua
-    minetest.register_on_wielditem_change(function(player, old, new)
-      if hud_scope[player:get_player_name()] then
-          hide_scope(player)
-      end
-    end)
-    ```
-- `player:set_fov(fov)`
-- `player:set_fov(0)`
 
 ## Registering custom rifles
 
@@ -59,12 +41,22 @@ New sniper rifles can be registered using the `sniper.register_rifle(name, def)`
 }
 ```
 
+## Making use of the bleeding-edge features
+
+This mod makes use of features that haven't been merged into the engine just yet. To make use of them, follow the given instructions below:
+
+- [Player FOV overriding](https://github.com/minetest/minetest/pull/7557)
+  - Apply the above PR, and switch to [`feature/fov`](https://github.com/ClobberXD/sniper/tree/feature/fov) branch
+- [`register_on_wielditem_change` callback](https://github.com/minetest/minetest/pull/7587)
+  - Apply the above PR, and switch to [`feature/wielditem_change`](https://github.com/ClobberXD/sniper/tree/feature/wielditem_change) branch
+
 ## TODO
 
 - Provide more rifles with the mod itself.
 - Ability to upgrade. e.g. better scope, improved stability, etc.
   - Maybe pass another table to `sniper.register_rifle` defining all possible upgrade paths?
 - Support for custom shoot/reload sounds; default to provided sounds.
+- Support for per-rifle "perks".
 
 ### License: MIT
 
