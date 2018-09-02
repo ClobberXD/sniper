@@ -10,11 +10,11 @@ minetest.register_on_joinplayer(function(player)
 	scope_hud[player:get_player_name()] = nil
 end)
 
-minetest.register_on_wielditem_change(function(player, old, new)
+--[[minetest.register_on_wielditem_change(function(player, old, new)
 	if scope_hud[player:get_player_name()] then
 		hide_scope(player)
 	end
-end)
+end)]]
 
 -- Show scope
 function show_scope(player, fov, style)
