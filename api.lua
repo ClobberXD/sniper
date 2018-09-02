@@ -34,7 +34,7 @@ function show_scope(player, fov, style)
 		wielditem = false
 	})
 
-	player:set_fov(fov)
+	-- player:set_fov(fov)
 	scope_hud[name] = player:hud_add({
 		hud_elem_type = "image",
 		scale = {x = -100, y = -100},
@@ -47,7 +47,7 @@ end
 -- Hide scope
 function hide_scope(player)
 	local name = player:get_player_name()
-	player:set_fov(0)
+	-- player:set_fov(0)
 	player:hud_remove(scope_hud[name])
 	player:hud_set_flags(hud_flags[name])
 	scope_hud[name] = nil
